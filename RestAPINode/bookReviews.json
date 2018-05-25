@@ -1,0 +1,8 @@
+[
+    {
+        "id": 1,
+        "bookId": 2,
+        "rating": 3.5,
+        "review": "Excellent but not interesting"
+    }
+]

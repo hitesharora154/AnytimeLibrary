@@ -1,0 +1,14 @@
+[
+    {
+        "id":1,
+        "name":"Philosophy"
+    },
+    {
+        "id":2,
+        "name":"Science"
+    },
+    {
+        "id":3,
+        "name":"Fiction"
+    }
+]
