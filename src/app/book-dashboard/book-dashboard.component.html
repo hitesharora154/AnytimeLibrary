@@ -1,0 +1,22 @@
+<mat-progress-bar mode="query" color="accent" *ngIf="isLoading"></mat-progress-bar>
+<div class="search-attribs">
+  <mat-form-field>
+    <input matInput [ngModel]="authorOrTitle" placeholder="Search By Author or Title" (ngModelChange)="textEntered($event)">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-select placeholder="Book Category" (change)="categorySelected($event.value)">
+      <mat-option [value]="0">None</mat-option>
+      <mat-option *ngFor="let category of bookCategories" [value]="category.id">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<br>
+<br>
+<div class="bookDash">
+  <div *ngFor="let book of books">
+      <app-book (bookingDone)="getBook(0)" [book]='book'></app-book>
+  </div>
+</div>

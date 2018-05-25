@@ -1,0 +1,14 @@
+.search-attribs{
+    background-color: rgb(197, 194, 194);
+    padding: 10%;
+}
+
+.bookCard {
+    max-width: 50%;
+    position: relative;
+    width: 800px;
+}
+
+.bookDash {
+    margin: 10px;
+}

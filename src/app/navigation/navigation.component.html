@@ -1,0 +1,9 @@
+<div class="navbar fixed-top navbar-dark bg-dark row">
+  <a class="navbar-brand col-2" href="#">Library</a>
+  <div class="col-6"></div>
+  <button *ngIf="!socialUser; else userData" mat-raised-button (click)="signIn()" color="warn">Sign In with Google</button>
+  <ng-template #userData class="col-4">
+    <h3 style="color:azure">Welcome {{socialUser.name}}</h3>
+    <img src="{{socialUser.imageUrl}}">
+  </ng-template>
+</div>

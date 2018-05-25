@@ -1,0 +1,17 @@
+{
+    "name": "Angular Progressive Web App",
+    "short_name": "Ng-PWA",
+    "start_url": "./",
+    "theme_color": "#008080",
+    "background_color": "#008B8B",
+    "display": "standalone",
+    "description": "A PWA that is built with Angular",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "sizes": "32x32",
+            "type": "image/ico"
+        }
+    ]
+ 
+ }

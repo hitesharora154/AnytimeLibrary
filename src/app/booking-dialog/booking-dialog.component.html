@@ -1,0 +1,22 @@
+<h1 mat-dialog-title class="primary-color">{{title}}</h1>
+<mat-dialog-content class="accent-color">
+  <div *ngIf="bookId != -1; else unavailable">
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" placeholder="Pick a Date" [(ngModel)]="datePicked">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <ng-template #unavailable>
+    <h2 style="color: white">The Book is currently unavailable</h2>
+  </ng-template>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <div *ngIf="bookId != -1; else aww">
+    <button mat-raised-button color="accent" (click)="dialogRef.close(datePicked)">Book</button>
+    <button mat-raised-button (click)="dialogRef.close(null)">Cancel</button>
+  </div>
+  <ng-template #aww>
+      <button mat-raised-button (click)="dialogRef.close(null)" color="accent">Aww :(</button>
+  </ng-template>
+</mat-dialog-actions>
