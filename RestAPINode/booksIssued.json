@@ -102,5 +102,25 @@
 		"userId": null,
 		"bookId": 4,
 		"issueDate": "2018-05-30T18:30:00.000Z"
+	},
+	{
+		"userId": null,
+		"bookId": 4,
+		"issueDate": "2018-05-30T18:30:00.000Z"
+	},
+	{
+		"userId": null,
+		"bookId": 2,
+		"issueDate": "2018-07-18T18:30:00.000Z"
+	},
+	{
+		"userId": null,
+		"bookId": 4,
+		"issueDate": "2018-07-23T18:30:00.000Z"
+	},
+	{
+		"userId": null,
+		"bookId": 3,
+		"issueDate": "2018-06-26T18:30:00.000Z"
 	}
 ]

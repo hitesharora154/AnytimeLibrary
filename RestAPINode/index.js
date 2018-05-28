@@ -15,11 +15,11 @@ app.use((req, res, next) => {
 app.get('/books', (request, response) => {
     fs.readFile("books.json", (err, data) => {
         if (err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var books = JSON.parse(data);
-            response.status(200).json(books);
+            response.send(books);
         }
     })
 });
@@ -27,7 +27,7 @@ app.get('/books', (request, response) => {
 app.post('/books', (request, response) => {
     fs.readFile("books.json", (err, data) => {
         if (err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var books = JSON.parse(data);
@@ -37,10 +37,10 @@ app.post('/books', (request, response) => {
 
             fs.writeFile("books.json", finalData, (err) => {
                 if (err) {
-                    response.send(err.message);
+                    response.write(err.message);
                 }
                 else {
-                    response.status(200).json({message:"Done!"});
+                    response.write("Done!");
                 }
             })
         }
@@ -50,7 +50,7 @@ app.post('/books', (request, response) => {
 app.post('/user', (request, response) => {
     fs.readFile("users.json", (err, data) => {
         if (err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var users = JSON.parse(data);
@@ -60,10 +60,10 @@ app.post('/user', (request, response) => {
 
             fs.writeFile("users.json", finalData, (err) => {
                 if (err) {
-                    response.send(err.message);
+                    response.write(err.message);
                 }
                 else {
-                    response.status(200).json({message:"Done!"});
+                    response.write("Done!");
                 }
             });
         }
@@ -77,11 +77,11 @@ app.listen(port, () => {
 app.get('/bookCategories', (request, response) => {
     fs.readFile("bookCategories.json", (err, data) => {
         if (err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var books = JSON.parse(data);
-            response.status(200).json(books);
+            response.send(books);
         }
     })
 });
@@ -89,11 +89,11 @@ app.get('/bookCategories', (request, response) => {
 app.get('/user', (request, response) => {
     fs.readFile("users.json", (err, data) => {
         if (err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var books = JSON.parse(data);
-            response.status(200).json(books);
+            response.send(books);
         }
     })
 });
@@ -101,7 +101,7 @@ app.get('/user', (request, response) => {
 app.get('/bookIssued/:id', (request, response) => {
     fs.readFile("booksIssued.json", (err, data) => {
         if(err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var books = JSON.parse(data);
@@ -110,7 +110,7 @@ app.get('/bookIssued/:id', (request, response) => {
                     return b;
                 }
             })
-            response.status(200).json(books);
+            response.send(books);
         }
     })
 });
@@ -135,10 +135,10 @@ app.post('/bookIssued', (request, response) => {
             fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) => {
                 if(err) {
                     console.log(err);
-                    response.send(err.message);
+                    response.write(err.message);
                 }
                 else{
-                    response.status(200).json({message: "Done!"});
+                    response.write("Done!");
                 }
             });
         }
@@ -147,7 +147,7 @@ app.post('/bookIssued', (request, response) => {
     // add book issue
     fs.readFile("booksIssued.json", (err, data) => {
         if (err) {
-            response.send(err.message);
+            response.write(err.message);
         }
         else {
             var users = JSON.parse(data);
@@ -157,10 +157,10 @@ app.post('/bookIssued', (request, response) => {
 
             fs.writeFile("booksIssued.json", finalData, (err) => {
                 if (err) {
-                    response.send(err.message);
+                    response.write(err.message);
                 }
                 else {
-                    response.status(200).json({message:"Done!"});
+                    response.write("Done!");
                 }
             });
         }

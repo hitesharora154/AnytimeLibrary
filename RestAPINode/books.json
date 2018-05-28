@@ -4,7 +4,7 @@
 		"title": "The monk who sold his ferrari",
 		"categoryID": 1,
 		"author": "Robin Singh",
-		"availability": 4
+		"availability": 3
 	},
 	{
 		"id": 1,
@@ -18,14 +18,14 @@
 		"title": "The Soul of America: The Battle for Our Better Angels",
 		"categoryID": 3,
 		"author": "John Meacham",
-		"availability": 1
+		"availability": 0
 	},
 	{
 		"id": 4,
 		"title": "PAX Indica",
 		"categoryID": 3,
 		"author": "Shashi Tharoor",
-		"availability": 7
+		"availability": 5
 	},
 	{
 		"id": 5,
