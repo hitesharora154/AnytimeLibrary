@@ -1,0 +1,48 @@
+<div class="container">
+  <form>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Book Title" [formControl]="bookNameForm">
+      <mat-error *ngIf="bookNameForm.hasError('required')">
+        Book Title is
+        <strong>Required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="Author" [formControl]="authorForm">
+      <mat-error *ngIf="authorForm.hasError('required')">
+        Author Name is
+        <strong>Required</strong>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <div *ngIf="!isNewCategory; else categoryForm">
+      <mat-form-field>
+        <mat-select placeholder="Book Category">
+          <mat-option *ngFor="let category of bookCategories" [value]="category.id">
+            {{category.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button (click)="enterCategory()">Category Not Found?</button>
+    </div>
+    <ng-template #categoryForm>
+        <mat-form-field>
+            <input matInput placeholder="Category Name" [formControl]="bookCategoryName">
+            <mat-error *ngIf="bookCategoryName.hasError('required')">
+              Category Name is
+              <strong>Required</strong>
+            </mat-error>
+          </mat-form-field>
+    </ng-template>
+    <br>
+    <mat-form-field>
+      <input matInput type="number" placeholder="Avaialbility of Book" [formControl]="availabilityForm">
+      <mat-error *ngIf="availabilityForm.hasError('required')">
+        Avaialbility of book is
+        <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</div>
