@@ -14,7 +14,7 @@ import { BookIssued } from '../models/book-issued';
 export class BookComponent implements OnInit {
 
   @Input() book: Book;
-  @Output() bookingDone = new EventEmitter();
+  @Output('bookingDone') bookingDone = new EventEmitter();
 
   constructor(private bookingDialogService: BookingDialogService, private bookService: BookService, private snackBar: MatSnackBar) { }
 

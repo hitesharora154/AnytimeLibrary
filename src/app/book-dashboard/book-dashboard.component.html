@@ -17,6 +17,6 @@
 <br>
 <div class="bookDash">
   <div *ngFor="let book of books">
-      <app-book (bookingDone)="getBook(0)" [book]='book'></app-book>
+      <app-book (bookingDone)="refresh()" [book]='book'></app-book>
   </div>
 </div>

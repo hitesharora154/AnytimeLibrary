@@ -30,17 +30,29 @@ app.post('/books', (request, response) => {
             response.write(err.message);
         }
         else {
+            var categoryID = request.body.categoryID;
+            if (request.body.categoryID == -1) {
+                categoryID = addNewCategory(request.body.category);
+            }
             var books = JSON.parse(data);
-            var bodyString = JSON.stringify(request.body);
-            books.push(JSON.parse(bodyString));
+            books.sort((a, b) => {
+                return a.id - b.id;
+            });
+            var book = {
+                id: getNextID(books),
+                title: request.body.title,
+                categoryID: categoryID,
+                author: request.body.author,
+                availability: request.body.availability
+            };
+            books.push(book);
             var finalData = JSON.stringify(books, null, "\t");
-
             fs.writeFile("books.json", finalData, (err) => {
                 if (err) {
                     response.write(err.message);
                 }
                 else {
-                    response.write("Done!");
+                    response.send({message: "Done!"});
                 }
             })
         }
@@ -63,7 +75,7 @@ app.post('/user', (request, response) => {
                     response.write(err.message);
                 }
                 else {
-                    response.write("Done!");
+                    response.send({ message: "Done!" });
                 }
             });
         }
@@ -100,13 +112,13 @@ app.get('/user', (request, response) => {
 
 app.get('/bookIssued/:id', (request, response) => {
     fs.readFile("booksIssued.json", (err, data) => {
-        if(err) {
+        if (err) {
             response.write(err.message);
         }
         else {
             var books = JSON.parse(data);
             books = books.filter(b => {
-                if(b.bookId == request.params.id) {
+                if (b.bookId == request.params.id) {
                     return b;
                 }
             })
@@ -119,7 +131,7 @@ app.post('/bookIssued', (request, response) => {
 
     //update availability
     fs.readFile("books.json", (err, data) => {
-        if(err) {
+        if (err) {
             console.log(err);
         }
         else {
@@ -127,18 +139,15 @@ app.post('/bookIssued', (request, response) => {
             var bodyString = JSON.stringify(request.body);
 
             books.forEach(element => {
-                if(element.id == request.body.bookId) {
+                if (element.id == request.body.bookId) {
                     element.availability--;
                 }
             });
-            
+
             fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) => {
-                if(err) {
+                if (err) {
                     console.log(err);
                     response.write(err.message);
-                }
-                else{
-                    response.write("Done!");
                 }
             });
         }
@@ -160,9 +169,40 @@ app.post('/bookIssued', (request, response) => {
                     response.write(err.message);
                 }
                 else {
-                    response.write("Done!");
+                    response.send({ message: "Done!" });
                 }
             });
         }
     })
 });
+
+function getNextID(array) {
+    var lastItem = array[array.length - 1];
+    return lastItem.id + 1;
+}
+
+function addNewCategory(categoryName) {
+    fs.readFile("bookCategories.json", (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var categories = JSON.parse(data);
+            var category = {
+                id: getNextID(categories),
+                name: categoryName
+            };
+            categories.push(category);
+            var finalData = JSON.stringify(categories, null, "\t");
+
+            fs.writeFile("users.json", finalData, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    return category.id;
+                }
+            });
+        }
+    });
+}

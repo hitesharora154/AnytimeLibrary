@@ -1,126 +1,17 @@
 [
 	{
-		"userId": "876",
-		"bookId": 1,
-		"issueDate": "Wed May 23 2018 00:00:00 GMT+0530 (India Standard Time)"
-	},
-	{
-		"userId": "876",
-		"bookId": 2,
-		"issueDate": "Wed May 23 2018 00:00:00 GMT+0530 (India Standard Time)"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 5,
-		"issueDate": "2018-05-22T18:30:00.000Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 5
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 4,
-		"issueDate": "2018-05-30T18:30:00.000Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 2
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 2
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 4,
-		"issueDate": "2018-05-24T18:30:00.000Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 1,
-		"issueDate": "2018-05-22T15:24:24.322Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 2,
-		"issueDate": "2018-05-22T15:25:46.063Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 2
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 1,
-		"issueDate": "2018-05-22T15:28:40.421Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 1,
-		"issueDate": "2018-05-30T18:30:00.000Z"
-	},
-	{
-		"userId": "108912031135016035154",
+		"userId": null,
 		"bookId": 2,
 		"issueDate": "2018-05-29T18:30:00.000Z"
 	},
 	{
-		"userId": "108912031135016035154",
-		"bookId": 2,
-		"issueDate": "2018-05-24T18:30:00.000Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 2,
-		"issueDate": "2018-05-22T15:39:18.889Z"
-	},
-	{
-		"userId": "108912031135016035154",
+		"userId": null,
 		"bookId": 1,
-		"issueDate": "2018-05-23T04:58:30.158Z"
-	},
-	{
-		"userId": "108912031135016035154",
-		"bookId": 4
-	},
-	{
-		"userId": null,
-		"bookId": 2
-	},
-	{
-		"userId": null,
-		"bookId": 3,
-		"issueDate": "2018-05-27T18:30:00.000Z"
-	},
-	{
-		"userId": null,
-		"bookId": 4,
-		"issueDate": "2018-05-28T18:30:00.000Z"
-	},
-	{
-		"userId": null,
-		"bookId": 4,
-		"issueDate": "2018-05-30T18:30:00.000Z"
-	},
-	{
-		"userId": null,
-		"bookId": 4,
-		"issueDate": "2018-05-30T18:30:00.000Z"
+		"issueDate": "2018-05-29T18:30:00.000Z"
 	},
 	{
 		"userId": null,
 		"bookId": 2,
-		"issueDate": "2018-07-18T18:30:00.000Z"
-	},
-	{
-		"userId": null,
-		"bookId": 4,
-		"issueDate": "2018-07-23T18:30:00.000Z"
-	},
-	{
-		"userId": null,
-		"bookId": 3,
-		"issueDate": "2018-06-26T18:30:00.000Z"
+		"issueDate": "2018-05-29T18:30:00.000Z"
 	}
 ]

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
 
 import { BookService } from '../services/book.service';
 import { BookCategory } from '../models/book-category';
+import { Book } from '../models/book';
 
 @Component({
   selector: 'app-add-book',
@@ -19,7 +21,7 @@ export class AddBookComponent implements OnInit {
   isNewCategory = false;
   bookCategories: BookCategory[];
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.bookService.getBookCategories().subscribe(data => {
@@ -38,4 +40,28 @@ export class AddBookComponent implements OnInit {
     this.bookCategoryForm = new FormControl('');
   }
 
+  submit() {
+    this.bookService.addBook(new Book(
+      -1,
+      this.bookNameForm.value,
+      this.isNewCategory ? -1 : this.bookCategoryForm.value,
+      this.authorForm.value,
+      this.availabilityForm.value
+    )).subscribe((response: any) => {
+      this.snackBar.open(response.message, 'Yayy!', {
+        duration: 3000
+      });
+    });
+    this.availabilityForm.reset();
+    this.authorForm.reset();
+    this.bookCategoryForm.reset();
+    this.bookNameForm.reset();
+    if (this.isNewCategory) {
+      this.bookCategoryName.reset();
+    }
+  }
+
+  selectCategory() {
+    this.isNewCategory = false;
+  }
 }

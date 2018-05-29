@@ -1,37 +1,44 @@
 [
 	{
-		"id": 2,
-		"title": "The monk who sold his ferrari",
-		"categoryID": 1,
-		"author": "Robin Singh",
-		"availability": 3
-	},
-	{
 		"id": 1,
 		"title": "Into the unknown Universe",
 		"categoryID": 2,
 		"author": "Stephen Hawking",
-		"availability": 0
+		"availability": 3
+	},
+	{
+		"id": 2,
+		"title": "The monk who sold his ferrari",
+		"categoryID": 1,
+		"author": "Robin Singh",
+		"availability": 8
 	},
 	{
 		"id": 3,
 		"title": "The Soul of America: The Battle for Our Better Angels",
 		"categoryID": 3,
 		"author": "John Meacham",
-		"availability": 0
+		"availability": 7
 	},
 	{
 		"id": 4,
 		"title": "PAX Indica",
 		"categoryID": 3,
 		"author": "Shashi Tharoor",
-		"availability": 5
+		"availability": 4
 	},
 	{
 		"id": 5,
 		"title": "The Secret",
 		"categoryID": 1,
 		"author": "Dan Brown",
-		"availability": 2
+		"availability": 9
+	},
+	{
+		"id": 6,
+		"title": "The Alchemist",
+		"categoryID": 1,
+		"author": "Paul Coelhelo",
+		"availability": 5
 	}
 ]

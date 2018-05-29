@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ApplicationRef } from '@angular/core';
 
 import { BookService } from '../services/book.service';
 import { Book } from '../models/book';
@@ -18,7 +18,7 @@ export class BookDashboardComponent implements OnInit {
   isLoading = true;
   categoryId = 0;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, private applicationRef: ApplicationRef) { }
 
   ngOnInit() {
     this.getBooks(null);
@@ -84,4 +84,7 @@ export class BookDashboardComponent implements OnInit {
     this.getBooks(this.categoryId);
   }
 
+  refresh() {
+    this.ngOnInit();
+  }
 }

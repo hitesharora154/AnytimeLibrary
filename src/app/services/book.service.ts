@@ -76,4 +76,7 @@ export class BookService {
         return this.http.post(environment.apiUrl + 'bookIssued', bookIssued);
     }
 
+    addBook(book: Book) {
+        return this.http.post(environment.apiUrl + 'books', book);
+    }
 }
