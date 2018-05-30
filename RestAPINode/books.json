@@ -18,7 +18,7 @@
 		"title": "The Soul of America: The Battle for Our Better Angels",
 		"categoryID": 3,
 		"author": "John Meacham",
-		"availability": 7
+		"availability": 6
 	},
 	{
 		"id": 4,
@@ -39,6 +39,6 @@
 		"title": "The Alchemist",
 		"categoryID": 1,
 		"author": "Paul Coelhelo",
-		"availability": 5
+		"availability": 3
 	}
 ]

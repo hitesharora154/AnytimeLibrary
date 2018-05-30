@@ -6,6 +6,7 @@ import { BookService } from '../services/book.service';
 import { BookCategory } from '../models/book-category';
 import { Book } from '../models/book';
 
+const NUMBER_REGEX = /^[0-9]+$/;
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
@@ -28,7 +29,7 @@ export class AddBookComponent implements OnInit {
       this.bookCategories = data;
     });
 
-    this.availabilityForm = new FormControl('', [Validators.required]);
+    this.availabilityForm = new FormControl('', [Validators.required, Validators.pattern(NUMBER_REGEX)]);
     this.bookCategoryForm = new FormControl('', [Validators.required]);
     this.bookNameForm = new FormControl('', [Validators.required]);
     this.authorForm = new FormControl('', [Validators.required]);

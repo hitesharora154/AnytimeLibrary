@@ -7,11 +7,13 @@ import { Book } from '../models/book';
 import { environment } from '../../environments/environment';
 import { BookCategory } from '../models/book-category';
 import { BookIssued } from '../models/book-issued';
+import { UserService } from './user.service';
+import { User } from '../models/user';
 
 @Injectable()
 export class BookService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private userService: UserService) { }
 
     getBooks(): Observable<Book[]> {
         return this.http.get<Book[]>(environment.apiUrl + 'books')
@@ -51,22 +53,34 @@ export class BookService {
             );
     }
 
-    getIssuedBooks(bookId) {
-        return this.http.get(environment.apiUrl + 'bookIssued/' + bookId)
+    getIssuedBooks(bookId?): Observable<BookIssued[]> {
+        let url = environment.apiUrl + 'bookIssued';
+        if (bookId) {
+            url = url + bookId;
+        }
+        return this.http.get(url)
             .pipe(
-                map((issues: Array<any>) => {
-                    console.log(issues);
+                map((issues: any) => {
                     const issuesResult: Array<BookIssued> = [];
                     if (issues) {
-                        issues.forEach((issue) => {
-                            issuesResult.push(new BookIssued(
+                        issues.booksIssued.forEach((issue) => {
+                            const newElement = new BookIssued(
                                 issue.userId,
                                 issue.bookId,
                                 issue.issueDate
-                            ));
+                            );
+                            const relatedBook = issues.books.find(b => b.id === newElement.bookId);
+                            if (relatedBook) {
+                                newElement.bookTitle = relatedBook.title;
+                                newElement.bookAuthor = relatedBook.author;
+                            }
+                            const relatedUser = issues.users.find(u => u.id === newElement.userId);
+                            if (relatedUser) {
+                                newElement.userName = relatedUser.name;
+                            }
+                            issuesResult.push(newElement);
                         });
                     }
-
                     return issuesResult;
                 })
             );

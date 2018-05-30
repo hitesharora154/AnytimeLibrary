@@ -16,6 +16,7 @@ import { UserService } from './services/user.service';
 import { BookingDialogComponent } from './booking-dialog/booking-dialog.component';
 import { BookingDialogService } from './booking-dialog/booking-dialog.service';
 import { AddBookComponent } from './add-book/add-book.component';
+import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { AddBookComponent } from './add-book/add-book.component';
     BookDashboardComponent,
     BookComponent,
     BookingDialogComponent,
-    AddBookComponent
+    AddBookComponent,
+    ViewBookingsComponent
   ],
   imports: [
     BrowserModule,

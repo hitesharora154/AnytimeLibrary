@@ -1,0 +1,22 @@
+<div class="container">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef>Username</mat-header-cell>
+      <mat-cell *matCellDef="let booking">{{booking.userName | uppercase}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="bookTitle">
+      <mat-header-cell *matHeaderCellDef>Book Title</mat-header-cell>
+      <mat-cell *matCellDef="let booking">{{booking.bookTitle}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="bookAuthor">
+      <mat-header-cell *matHeaderCellDef>Book Author</mat-header-cell>
+      <mat-cell *matCellDef="let booking">{{booking.bookAuthor}}</mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="issueDate">
+      <mat-header-cell *matHeaderCellDef>Issue Date</mat-header-cell>
+      <mat-cell *matCellDef="let booking">{{booking.issueDate | date:"fullDate"}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

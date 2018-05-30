@@ -52,7 +52,7 @@ app.post('/books', (request, response) => {
                     response.write(err.message);
                 }
                 else {
-                    response.send({message: "Done!"});
+                    response.send({ message: "Done!" });
                 }
             })
         }
@@ -110,19 +110,48 @@ app.get('/user', (request, response) => {
     })
 });
 
-app.get('/bookIssued/:id', (request, response) => {
+app.get('/bookIssued/:id?', (request, response) => {
     fs.readFile("booksIssued.json", (err, data) => {
         if (err) {
             response.write(err.message);
         }
         else {
-            var books = JSON.parse(data);
-            books = books.filter(b => {
-                if (b.bookId == request.params.id) {
-                    return b;
+            var responseBody = {
+                booksIssued: '',
+                books: '',
+                users: ''
+            };
+            var booksIssued = JSON.parse(data);
+            if (request.params.id) {
+                booksIssued = booksIssued.filter(b => {
+                    if (b.userId == request.params.id) {
+                        return b;
+                    }
+                })
+            }
+            responseBody.booksIssued = booksIssued;
+            fs.readFile("books.json", (err, booksData) => {
+                if (err) {
+                    console.log(err);
                 }
-            })
-            response.send(books);
+                else {
+                    var books = JSON.parse(booksData);
+                    responseBody.books = books;
+
+                    fs.readFile("users.json", (err, userData) => {
+                        if (err) {
+                            console.log(err);
+                        }
+                        else {
+                            var users = JSON.parse(userData);
+                            responseBody.users = users;
+                        }
+
+                        response.send(responseBody);
+                    });
+                }
+            });
+
         }
     })
 });

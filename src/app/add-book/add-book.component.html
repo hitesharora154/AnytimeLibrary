@@ -28,14 +28,14 @@
       <button mat-button (click)="enterCategory()">Category Not Found?</button>
     </div>
     <ng-template #categoryForm>
-        <mat-form-field>
-            <input matInput placeholder="Category Name" [formControl]="bookCategoryName">
-            <mat-error *ngIf="bookCategoryName.hasError('required')">
-              Category Name is
-              <strong>Required</strong>
-            </mat-error>
-          </mat-form-field>
-          <button mat-button (click)="selectCategory()">Existing Categories</button>
+      <mat-form-field>
+        <input matInput placeholder="Category Name" [formControl]="bookCategoryName">
+        <mat-error *ngIf="bookCategoryName.hasError('required')">
+          Category Name is
+          <strong>Required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-button (click)="selectCategory()">Existing Categories</button>
     </ng-template>
     <br>
     <mat-form-field>
@@ -44,8 +44,15 @@
         Avaialbility of book is
         <strong>required</strong>
       </mat-error>
+      <mat-error *ngIf="availabilityForm.hasError('pattern')">
+        Please enter only numbers
+      </mat-error>
     </mat-form-field>
     <br>
-    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+    <button mat-raised-button color="primary" (click)="submit()" 
+    [disabled]="bookNameForm.hasError('required') || availabilityForm.hasError('pattern') || availabilityForm.hasError('required')
+    || (bookCategoryName.hasError('required') && isNewCategory) || (bookCategoryForm.hasError('required') && !isNewCategory)
+    || authorForm.hasError('required') || bookNameForm.hasError('required')">
+      Submit</button>
   </form>
 </div>
