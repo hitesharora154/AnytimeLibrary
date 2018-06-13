@@ -1,0 +1,15 @@
+<h1 mat-dialog-title class="primary-color">{{title}}</h1>
+<mat-dialog-content class="accent-color">
+  <h2 class="jumbotron">How Was the Book?</h2>
+  <mat-slider thumbLabel tickInterval="1" min="1" max="5" [formControl]="ratingForm"></mat-slider>
+  <br>
+  <br>
+  <mat-form-field>
+    <textarea matInput placeholder="Leave a comment" [formControl]="commentForm"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<br>
+<mat-dialog-actions>
+  <button mat-raised-button class="btn btn-cancel" (click)="dialogRef.close(null)">Cancel</button>
+  <button mat-raised-button (click)="submitReview()" [disabled]="ratingForm.hasError('required')" color="primary">Submit</button>
+</mat-dialog-actions>

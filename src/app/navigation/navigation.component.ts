@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'angular5-social-login';
+import { MatSnackBar } from '@angular/material';
 
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
@@ -13,7 +14,7 @@ export class NavigationComponent implements OnInit {
 
   socialUser: User;
 
-  constructor(private socialAuthService: AuthService, private userService: UserService) { }
+  constructor(private socialAuthService: AuthService, private userService: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }
@@ -22,6 +23,7 @@ export class NavigationComponent implements OnInit {
   public signIn() {
     this.socialAuthService.signIn('google').then(
       (userData) => {
+        sessionStorage.setItem('role', 'customer');
         sessionStorage.setItem('userId', userData.id);
         let users: User[];
         let flag = false;
@@ -53,7 +55,7 @@ export class NavigationComponent implements OnInit {
               ).subscribe(res => console.log(res));
             }
           });
-      }
-    );
+      }).catch(err => console.log('Custom' + err))
+      .catch(err => console.log('Custom' + err));
   }
 }

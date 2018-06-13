@@ -69,6 +69,7 @@ export class BookService {
                                 issue.bookId,
                                 issue.issueDate
                             );
+                            newElement.returnDate = issue.returnDate;
                             const relatedBook = issues.books.find(b => b.id === newElement.bookId);
                             if (relatedBook) {
                                 newElement.bookTitle = relatedBook.title;

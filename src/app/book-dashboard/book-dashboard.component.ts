@@ -83,8 +83,4 @@ export class BookDashboardComponent implements OnInit {
     this.authorOrTitle = queryText;
     this.getBooks(this.categoryId);
   }
-
-  refresh() {
-    this.ngOnInit();
-  }
 }

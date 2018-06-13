@@ -22,7 +22,7 @@ export class BookingDialogComponent implements OnInit {
     return true;
   }
 
-  constructor(private dialogRef: MatDialogRef<BookingDialogComponent>) { }
+  constructor(public dialogRef: MatDialogRef<BookingDialogComponent>) { }
 
   ngOnInit() {
   }

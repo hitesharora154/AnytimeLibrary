@@ -14,7 +14,6 @@ import { BookIssued } from '../models/book-issued';
 export class BookComponent implements OnInit {
 
   @Input() book: Book;
-  @Output('bookingDone') bookingDone = new EventEmitter();
 
   constructor(private bookingDialogService: BookingDialogService, private bookService: BookService, private snackBar: MatSnackBar) { }
 
@@ -28,12 +27,12 @@ export class BookComponent implements OnInit {
     this.bookingDialogService.confirm(bookId, bookTitle)
       .subscribe(res => {
         if (res !== null) {
-          this.bookingDone.emit();
           this.bookService.addBookIssue(new BookIssued(
             sessionStorage.getItem('userId'),
             this.book.id,
             res
           )).subscribe((response: any) => {
+            this.book.availability--;
             this.snackBar.open(response.message, 'Yayy!', {
               duration: 3000
             });

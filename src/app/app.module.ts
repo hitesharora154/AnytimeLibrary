@@ -17,6 +17,9 @@ import { BookingDialogComponent } from './booking-dialog/booking-dialog.componen
 import { BookingDialogService } from './booking-dialog/booking-dialog.service';
 import { AddBookComponent } from './add-book/add-book.component';
 import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
+import { BookReviewService } from './services/book-review.service';
+import { ReviewDialogComponent } from './review-dialog/review-dialog.component';
+import { ReviewDialogService } from './review-dialog/review-dialog.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
     BookComponent,
     BookingDialogComponent,
     AddBookComponent,
-    ViewBookingsComponent
+    ViewBookingsComponent,
+    ReviewDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -44,10 +48,13 @@ import { ViewBookingsComponent } from './view-bookings/view-bookings.component';
     },
     BookService,
     UserService,
-    BookingDialogService
+    BookingDialogService,
+    BookReviewService,
+    ReviewDialogService
   ],
   entryComponents: [
-    BookingDialogComponent
+    BookingDialogComponent,
+    ReviewDialogComponent
   ],
   bootstrap: [AppComponent]
 })

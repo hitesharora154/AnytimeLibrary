@@ -5,6 +5,7 @@ export class BookIssued {
     bookTitle: string;
     bookAuthor: string;
     issueDate: string;
+    returnDate: string;
 
     constructor(userId, bookId, issueDate) {
         this.userId = userId;

@@ -188,24 +188,69 @@ app.post('/bookIssued', (request, response) => {
             response.write(err.message);
         }
         else {
+            var finalBookingBody = {
+                userId: request.body.userId,
+                bookId: request.body.bookId,
+                issueDate: request.body.issueDate,
+                returnDate: ''
+            };
             var users = JSON.parse(data);
-            var bodyString = JSON.stringify(request.body);
-            users.push(JSON.parse(bodyString));
-            var finalData = JSON.stringify(users, null, "\t");
 
-            fs.writeFile("booksIssued.json", finalData, (err) => {
+            fs.readFile("configs.json", (err, configData) => {
                 if (err) {
-                    response.write(err.message);
+                    console.log(err);
                 }
                 else {
-                    response.send({ message: "Done!" });
+                    var configs = JSON.parse(configData);
+                    var renewalConfig = configs.find(c => c.key == "renewalDays");
+                    var returnDate = new Date(finalBookingBody.issueDate);
+                    returnDate.setDate(returnDate.getDate() + renewalConfig.value);
+                    finalBookingBody.returnDate = returnDate.toISOString();
+
+                    users.push(finalBookingBody);
+
+                    var finalData = JSON.stringify(users, null, "\t");
+
+                    fs.writeFile("booksIssued.json", finalData, (err) => {
+                        if (err) {
+                            response.write(err.message);
+                        }
+                        else {
+                            response.send({ message: "Done!" });
+                        }
+                    });
                 }
             });
         }
     })
 });
 
+app.post('/bookReview', (request, response) => {
+    fs.readFile("bookReviews.json", (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var reviews = JSON.parse(data);
+            request.body.id = getNextID(reviews);
+            reviews.push(request.body);
+
+            fs.writeFile("bookReviews.json", JSON.stringify(reviews, null, "\t"), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    response.send({ message: "Done!" });
+                }
+            });
+        }
+    });
+});
+
 function getNextID(array) {
+    if (array.length == 0) {
+        return 1;
+    }
     var lastItem = array[array.length - 1];
     return lastItem.id + 1;
 }
