@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "*");
     next();
 });
 
@@ -243,6 +244,71 @@ app.post('/bookReview', (request, response) => {
                     response.send({ message: "Done!" });
                 }
             });
+        }
+    });
+});
+
+app.delete('/books/:id', (request, response) => {
+    fs.readFile("books.json", (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var books = JSON.parse(data);
+            const bookIndex = books.indexOf(books.find(b => b.id == request.params.id));
+            if (bookIndex != -1) {
+                books.splice(bookIndex, 1);
+            }
+
+            fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    response.send({ message: "Done!" });
+                }
+            });
+        }
+    });
+});
+
+app.post('/auth', (request, response) => {
+    fs.readFile("credentials.json", (err, data) => {
+        if(err){
+            console.log(err);
+        }
+        else{
+            var jObject = JSON.parse(data);
+            if(request.body.username == jObject.username && request.body.password == jObject.password) {
+                response.send({message: "Welcome"});
+            }
+            else{
+                response.send({message: "Username/Password Invalid"});
+            }
+        }
+    });
+});
+
+app.put('/books/:id', (request, response) => {
+    fs.readFile("books.json", (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var books = JSON.parse(data);
+            var checkBook = books.indexOf(books.find(b => b.id == request.params.id));
+            if (checkBook != -1) {
+                books[checkBook] = request.body;
+
+                fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        response.send({message: "Done!"});
+                    }
+                });
+            }
         }
     });
 });

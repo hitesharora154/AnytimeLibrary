@@ -34,6 +34,14 @@ export class BookService {
             }));
     }
 
+    deleteBook(bookId) {
+        const book: any = {
+            id: bookId
+        };
+
+        return this.http.delete(environment.apiUrl + 'books/' + bookId);
+    }
+
     getBookCategories() {
         return this.http.get(environment.apiUrl + 'bookCategories')
             .pipe(
@@ -53,10 +61,10 @@ export class BookService {
             );
     }
 
-    getIssuedBooks(bookId?): Observable<BookIssued[]> {
+    getIssuedBooks(userId?): Observable<BookIssued[]> {
         let url = environment.apiUrl + 'bookIssued';
-        if (bookId) {
-            url = url + bookId;
+        if (userId) {
+            url = url + '/' + userId;
         }
         return this.http.get(url)
             .pipe(
@@ -93,5 +101,9 @@ export class BookService {
 
     addBook(book: Book) {
         return this.http.post(environment.apiUrl + 'books', book);
+    }
+
+    updateBook(book: Book, bookId) {
+        return this.http.put(environment.apiUrl + 'books/' + bookId, book);
     }
 }

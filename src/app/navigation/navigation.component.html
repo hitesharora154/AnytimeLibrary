@@ -1,9 +1,14 @@
-<div class="navbar fixed-top navbar-dark bg-dark row">
-  <a class="navbar-brand col-2" href="#">Library</a>
-  <div class="col-6"></div>
-  <button *ngIf="!socialUser; else userData" mat-raised-button (click)="signIn()" color="warn">Sign In with Google</button>
-  <ng-template #userData class="col-4">
-    <h3 style="color:azure">Welcome {{socialUser.name}}</h3>
+<div class="navbar navbar-dark bg-dark row customNav">
+  <a class="navbar-brand col-1" href="#">Library</a>
+  <div class="col-3"></div>
+  <div *ngIf="!socialUser; else userData">
+    <button mat-raised-button color="primary" (click)="adminSignIn()">Sign in as Admin</button>
+    <button mat-raised-button (click)="signIn()" color="warn">Sign In with Google</button>
+  </div>
+  <ng-template #userData class="col-8">
+      <h5 style="color:azure; display: inline">Welcome {{socialUser.name}}</h5>
+      <button mat-raised-button (click)="redirectToHomePage()" color="primary">Home</button>
+      <button mat-raised-button (click)="logout()" color="warn">Log Out</button>
     <img src="{{socialUser.imageUrl}}">
   </ng-template>
 </div>

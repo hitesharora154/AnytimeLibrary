@@ -12,5 +12,36 @@
 		"userId": "108912031135016035154",
 		"rating": 4,
 		"review": "Good Book"
+	},
+	{
+		"id": 3,
+		"bookId": 3,
+		"userId": "108912031135016035154",
+		"rating": 4,
+		"review": "It was great"
+	},
+	{
+		"id": 4
+	},
+	{
+		"id": 5,
+		"bookId": 5,
+		"userId": "108912031135016035154",
+		"rating": 4,
+		"review": "It was really good"
+	},
+	{
+		"id": 6,
+		"bookId": 2,
+		"userId": "108912031135016035154",
+		"rating": 5,
+		"review": "Excellent"
+	},
+	{
+		"id": 7,
+		"bookId": 2,
+		"userId": "108912031135016035154",
+		"rating": 4,
+		"review": ""
 	}
 ]

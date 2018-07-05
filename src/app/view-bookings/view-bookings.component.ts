@@ -26,6 +26,7 @@ export class ViewBookingsComponent implements OnInit, AfterViewInit {
   displayedColumns = ['bookTitle', 'bookAuthor', 'issueDate', 'returnDate'];
   role: string;
   pageEvent: PageEvent;
+  userId = null;
 
   constructor(private bookService: BookService,
     private dialogService: ReviewDialogService,
@@ -34,14 +35,16 @@ export class ViewBookingsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.role = sessionStorage.getItem('role');
-    this.role = 'customer';
     if (this.role !== 'customer') {
       this.displayedColumns.unshift('userName');
     }
   }
 
   sortChanged(sortEventData?, pageEvent?: PageEvent) {
-    this.bookService.getIssuedBooks().subscribe(res => {
+    if (sessionStorage.getItem('role') === 'customer') {
+      this.userId = sessionStorage.getItem('userId');
+    }
+    this.bookService.getIssuedBooks(this.userId).subscribe(res => {
       if (sortEventData) {
         switch (sortEventData.active) {
           case 'userName':
@@ -116,7 +119,7 @@ export class ViewBookingsComponent implements OnInit, AfterViewInit {
       this.BooksIssued = res;
       this.dataSource = new MatTableDataSource<BookIssued>(this.BooksIssued);
       const sortData: Sort = {
-        active: 'bookTitke',
+        active: 'bookTitle',
         direction: 'asc'
       };
       this.sortChanged(sortData);
@@ -126,11 +129,13 @@ export class ViewBookingsComponent implements OnInit, AfterViewInit {
   returnBook(bookTitle, bookId, userId) {
     this.dialogService.submitReview(bookTitle, bookId, userId).subscribe(
       res => {
-        this.bookReviewService.addReview(res).subscribe((response: any) => {
-          this.snackBar.open(response.message, 'Yayy!', {
-            duration: 3000
+        if (res) {
+          this.bookReviewService.addReview(res).subscribe((response: any) => {
+            this.snackBar.open(response.message, 'Yayy!', {
+              duration: 3000
+            });
           });
-        });
+        }
       });
   }
 }

@@ -1,0 +1,38 @@
+<mat-form-field>
+  <input matInput placeholder="Book Title" [formControl]="titleForm">
+  <mat-error *ngIf="titleForm.hasError('required')">
+    Book Title is <strong>Required</strong>
+  </mat-error>
+</mat-form-field>
+<br>
+<mat-form-field>
+  <mat-select placeholder="Book Category" [formControl]="categoryForm">
+    <mat-option [value]="-1">Select a category</mat-option>
+    <mat-option *ngFor="let category of bookCategories" [value]="category.id">
+      {{category.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput placeholder="Book Author" [formControl]="authorForm">
+  <mat-error *ngIf="authorForm.hasError('required')">
+    Book Author is <strong>Required</strong>
+  </mat-error>
+</mat-form-field>
+<br>
+<mat-form-field>
+  <input matInput type="number" placeholder="Availability of Book" [formControl]="availabilityForm">
+  <mat-error *ngIf="availabilityForm.hasError('required')">
+      Avaialbility of book is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="availabilityForm.hasError('pattern')">
+      Please enter only numbers
+    </mat-error>
+</mat-form-field>
+<br>
+<button mat-raised-button color="primary" (click)="update()" 
+    [disabled]="titleForm.hasError('required') || availabilityForm.hasError('pattern') || availabilityForm.hasError('required')
+    || categoryForm.hasError('required') || categoryForm.value == -1 || authorForm.hasError('required')">
+      Update</button>

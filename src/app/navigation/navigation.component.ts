@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'angular5-social-login';
 import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
 
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
+import { LoginDialogService } from '../login/login-dialog.service';
 
 @Component({
   selector: 'app-navigation',
@@ -14,11 +16,46 @@ export class NavigationComponent implements OnInit {
 
   socialUser: User;
 
-  constructor(private socialAuthService: AuthService, private userService: UserService, private snackBar: MatSnackBar) { }
+  constructor(private socialAuthService: AuthService,
+    private userService: UserService,
+    private snackBar: MatSnackBar,
+    private loginDialogServive: LoginDialogService,
+    private router: Router) { }
 
   ngOnInit() {
   }
 
+  adminSignIn() {
+    this.loginDialogServive.login().subscribe((res: any) => {
+      this.snackBar.open(res.message, 'Ok', {
+        duration: 3000
+      });
+      if (res.message === 'Welcome') {
+        this.socialUser = new User(0, 'Admin', 'admin@admin.com', null);
+        sessionStorage.setItem('role', 'admin');
+        this.router.navigate(['admin']);
+      }
+    });
+  }
+
+  redirectToHomePage() {
+    if (sessionStorage.getItem('role') === 'admin') {
+      this.router.navigate(['admin']);
+    } else if (sessionStorage.getItem('role') === 'customer') {
+      this.router.navigate(['customer']);
+    } else {
+      this.snackBar.open('Unauthorized', 'Aww :(', {
+        duration: 3000
+      });
+      this.logout();
+    }
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.socialUser = null;
+    this.router.navigate(['']);
+  }
 
   public signIn() {
     this.socialAuthService.signIn('google').then(
@@ -27,6 +64,7 @@ export class NavigationComponent implements OnInit {
         sessionStorage.setItem('userId', userData.id);
         let users: User[];
         let flag = false;
+        this.router.navigate(['customer']);
         this.userService.getUsers()
           .subscribe((result) => {
             users = result;
