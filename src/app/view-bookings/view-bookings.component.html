@@ -21,7 +21,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header class="col-8">Return Date</mat-header-cell>
       <mat-cell *matCellDef="let booking">{{booking.returnDate | date:"fullDate"}}
         <button mat-fab *ngIf="role == 'customer'" class="col-4" 
-                (click)="returnBook(booking.bookTitle, booking.bookId, booking.userId)"
+                (click)="returnBook(booking.bookTitle, booking.bookId, booking.userId, booking.id)"
                 matTooltip="Return Book">
                 Return</button>
       </mat-cell>

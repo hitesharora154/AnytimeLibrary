@@ -26,16 +26,22 @@ export class BookComponent implements OnInit {
     }
     this.bookingDialogService.confirm(bookId, bookTitle)
       .subscribe(res => {
-        if (res !== null) {
+        if (res) {
           this.bookService.addBookIssue(new BookIssued(
             sessionStorage.getItem('userId'),
             this.book.id,
             res
           )).subscribe((response: any) => {
-            this.book.availability--;
-            this.snackBar.open(response.message, 'Yayy!', {
-              duration: 3000
-            });
+            if (response.message === 'Done!') {
+              this.book.availability--;
+              this.snackBar.open(response.message, 'Yayy!', {
+                duration: 3000
+              });
+            } else {
+              this.snackBar.open(response.message, 'Aww :(', {
+                duration: 3500
+              });
+            }
           });
         }
       });

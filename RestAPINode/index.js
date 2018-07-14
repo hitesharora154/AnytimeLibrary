@@ -31,31 +31,81 @@ app.post('/books', (request, response) => {
             response.write(err.message);
         }
         else {
-            var categoryID = request.body.categoryID;
+            var categoryID;
             if (request.body.categoryID == -1) {
-                categoryID = addNewCategory(request.body.category);
+                fs.readFile("bookCategories.json", (err, categoryData) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                    else {
+                        var categories = JSON.parse(categoryData);
+                        var category = {
+                            id: getNextID(categories),
+                            name: request.body.category
+                        };
+                        categories.push(category);
+                        var finalData = JSON.stringify(categories, null, "\t");
+
+                        fs.writeFile("bookCategories.json", finalData, (err) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                categoryID = category.id;
+                                var books = JSON.parse(data);
+                                books.sort((a, b) => {
+                                    return a.id - b.id;
+                                });
+
+                                var book = {
+                                    id: getNextID(books),
+                                    title: request.body.title,
+                                    categoryID: categoryID,
+                                    author: request.body.author,
+                                    availability: request.body.availability
+                                };
+                                books.push(book);
+                                var finalBookData = JSON.stringify(books, null, "\t");
+                                fs.writeFile("books.json", finalBookData, (err) => {
+                                    if (err) {
+                                        response.write(err.message);
+                                    }
+                                    else {
+                                        response.send({ message: "Done!" });
+                                    }
+                                })
+                            }
+                        });
+                    }
+                });
             }
-            var books = JSON.parse(data);
-            books.sort((a, b) => {
-                return a.id - b.id;
-            });
-            var book = {
-                id: getNextID(books),
-                title: request.body.title,
-                categoryID: categoryID,
-                author: request.body.author,
-                availability: request.body.availability
-            };
-            books.push(book);
-            var finalData = JSON.stringify(books, null, "\t");
-            fs.writeFile("books.json", finalData, (err) => {
-                if (err) {
-                    response.write(err.message);
-                }
-                else {
-                    response.send({ message: "Done!" });
-                }
-            })
+            else {
+                categoryID = request.body.categoryID;
+                var books = JSON.parse(data);
+                books.sort((a, b) => {
+                    return a.id - b.id;
+                });
+
+                var book = {
+                    id: getNextID(books),
+                    title: request.body.title,
+                    categoryID: categoryID,
+                    author: request.body.author,
+                    availability: request.body.availability
+                };
+                books.push(book);
+                var finalBookData = JSON.stringify(books, null, "\t");
+                fs.writeFile("books.json", finalBookData, (err) => {
+                    if (err) {
+                        response.write(err.message);
+                    }
+                    else {
+                        response.send({ message: "Done!" });
+                    }
+                })
+            }
+
+
         }
     });
 });
@@ -159,71 +209,99 @@ app.get('/bookIssued/:id?', (request, response) => {
 
 app.post('/bookIssued', (request, response) => {
 
-    //update availability
-    fs.readFile("books.json", (err, data) => {
+    fs.readFile("configs.json", (err, data) => {
         if (err) {
             console.log(err);
         }
         else {
-            var books = JSON.parse(data);
-            var bodyString = JSON.stringify(request.body);
+            var configs = JSON.parse(data);
+            var config = configs.find(c => c.key == "issueLimit");
 
-            books.forEach(element => {
-                if (element.id == request.body.bookId) {
-                    element.availability--;
-                }
-            });
-
-            fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) => {
-                if (err) {
-                    console.log(err);
-                    response.write(err.message);
-                }
-            });
-        }
-    })
-
-    // add book issue
-    fs.readFile("booksIssued.json", (err, data) => {
-        if (err) {
-            response.write(err.message);
-        }
-        else {
-            var finalBookingBody = {
-                userId: request.body.userId,
-                bookId: request.body.bookId,
-                issueDate: request.body.issueDate,
-                returnDate: ''
-            };
-            var users = JSON.parse(data);
-
-            fs.readFile("configs.json", (err, configData) => {
-                if (err) {
-                    console.log(err);
+            fs.readFile("booksIssued.json", (error, bookIssueddata) => {
+                if (error) {
+                    console.log(error);
                 }
                 else {
-                    var configs = JSON.parse(configData);
-                    var renewalConfig = configs.find(c => c.key == "renewalDays");
-                    var returnDate = new Date(finalBookingBody.issueDate);
-                    returnDate.setDate(returnDate.getDate() + renewalConfig.value);
-                    finalBookingBody.returnDate = returnDate.toISOString();
-
-                    users.push(finalBookingBody);
-
-                    var finalData = JSON.stringify(users, null, "\t");
-
-                    fs.writeFile("booksIssued.json", finalData, (err) => {
-                        if (err) {
-                            response.write(err.message);
+                    var booksIssued = JSON.parse(bookIssueddata);
+                    var usersIssuedBooks = booksIssued.filter(b => b.userId == request.body.userId);
+                    if (usersIssuedBooks) {
+                        if (usersIssuedBooks.length > config.value) {
+                            response.send({ message: "User Issue Limit Reached" });
                         }
                         else {
-                            response.send({ message: "Done!" });
+                            //update availability
+                            fs.readFile("books.json", (err, data) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    var books = JSON.parse(data);
+                                    var bodyString = JSON.stringify(request.body);
+
+                                    books.forEach(element => {
+                                        if (element.id == request.body.bookId) {
+                                            element.availability--;
+                                        }
+                                    });
+
+                                    fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) => {
+                                        if (err) {
+                                            console.log(err);
+                                            response.write(err.message);
+                                        }
+                                    });
+                                }
+                            })
+
+                            // add book issue
+                            fs.readFile("booksIssued.json", (err, data) => {
+                                if (err) {
+                                    response.write(err.message);
+                                }
+                                else {
+                                    var finalBookingBody = {
+                                        userId: request.body.userId,
+                                        bookId: request.body.bookId,
+                                        issueDate: request.body.issueDate,
+                                        returnDate: ''
+                                    };
+                                    var users = JSON.parse(data);
+
+                                    fs.readFile("configs.json", (err, configData) => {
+                                        if (err) {
+                                            console.log(err);
+                                        }
+                                        else {
+                                            var configs = JSON.parse(configData);
+                                            var renewalConfig = configs.find(c => c.key == "renewalDays");
+                                            var returnDate = new Date(finalBookingBody.issueDate);
+                                            returnDate.setDate(returnDate.getDate() + renewalConfig.value);
+                                            finalBookingBody.returnDate = returnDate.toISOString();
+                                            finalBookingBody.id = getNextID(users);
+                                            users.push(finalBookingBody);
+
+                                            var finalData = JSON.stringify(users, null, "\t");
+
+                                            fs.writeFile("booksIssued.json", finalData, (err) => {
+                                                if (err) {
+                                                    response.write(err.message);
+                                                }
+                                                else {
+                                                    response.send({ message: "Done!" });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            })
                         }
-                    });
+                    }
                 }
             });
         }
-    })
+    });
+
+
 });
 
 app.post('/bookReview', (request, response) => {
@@ -241,7 +319,27 @@ app.post('/bookReview', (request, response) => {
                     console.log(err);
                 }
                 else {
-                    response.send({ message: "Done!" });
+                    fs.readFile("booksIssued.json", (error, bookIssuedData) => {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            var booksIssued = JSON.parse(bookIssuedData);
+                            const bookIssueIndex = booksIssued.indexOf(booksIssued.find(b => b.id == request.body.bookingId));
+                            if (bookIssueIndex != -1) {
+                                booksIssued.splice(bookIssueIndex, 1);
+                            }
+
+                            fs.writeFile("booksIssued.json", JSON.stringify(booksIssued, null, "\t"), (err) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    response.send({ message: "Done!" });
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
@@ -274,16 +372,16 @@ app.delete('/books/:id', (request, response) => {
 
 app.post('/auth', (request, response) => {
     fs.readFile("credentials.json", (err, data) => {
-        if(err){
+        if (err) {
             console.log(err);
         }
-        else{
+        else {
             var jObject = JSON.parse(data);
-            if(request.body.username == jObject.username && request.body.password == jObject.password) {
-                response.send({message: "Welcome"});
+            if (request.body.username == jObject.username && request.body.password == jObject.password) {
+                response.send({ message: "Welcome" });
             }
-            else{
-                response.send({message: "Username/Password Invalid"});
+            else {
+                response.send({ message: "Username/Password Invalid" });
             }
         }
     });
@@ -300,12 +398,12 @@ app.put('/books/:id', (request, response) => {
             if (checkBook != -1) {
                 books[checkBook] = request.body;
 
-                fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) =>{
-                    if(err){
+                fs.writeFile("books.json", JSON.stringify(books, null, "\t"), (err) => {
+                    if (err) {
                         console.log(err);
                     }
-                    else{
-                        response.send({message: "Done!"});
+                    else {
+                        response.send({ message: "Done!" });
                     }
                 });
             }

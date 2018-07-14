@@ -1,14 +1,22 @@
 [
-    {
-        "id":1,
-        "name":"Philosophy"
-    },
-    {
-        "id":2,
-        "name":"Science"
-    },
-    {
-        "id":3,
-        "name":"Fiction"
-    }
+	{
+		"id": 1,
+		"name": "Philosophy"
+	},
+	{
+		"id": 2,
+		"name": "Science"
+	},
+	{
+		"id": 3,
+		"name": "Fiction"
+	},
+	{
+		"id": 4,
+		"name": "Thriller"
+	},
+	{
+		"id": 5,
+		"name": "Romantic"
+	}
 ]

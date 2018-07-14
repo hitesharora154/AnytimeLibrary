@@ -51,8 +51,7 @@
     <br>
     <button mat-raised-button color="primary" (click)="submit()" 
     [disabled]="bookNameForm.hasError('required') || availabilityForm.hasError('pattern') || availabilityForm.hasError('required')
-    || (bookCategoryName.hasError('required') && isNewCategory) || (bookCategoryForm.hasError('required') && !isNewCategory)
-    || authorForm.hasError('required') || bookNameForm.hasError('required')">
+    || authorForm.hasError('required') || bookNameForm.hasError('required') ">
       Submit</button>
   </form> 
 </div>

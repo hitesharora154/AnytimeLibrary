@@ -17,6 +17,7 @@ export class ReviewDialogComponent implements OnInit {
   title: string;
   bookId: number;
   userId: string;
+  bookingId: number;
 
   constructor(public dialogRef: MatDialogRef<ReviewDialogComponent>) { }
 
@@ -31,8 +32,10 @@ export class ReviewDialogComponent implements OnInit {
       bookId: this.bookId,
       userId: this.userId,
       rating: this.ratingForm.value,
-      review: this.commentForm.value
+      review: this.commentForm.value,
+      bookingId: this.bookingId
     };
+    console.log(bookReview);
     this.dialogRef.close(bookReview);
   }
 

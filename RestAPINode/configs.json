@@ -2,5 +2,9 @@
     {
         "key": "renewalDays",
         "value": 7
+    },
+    {
+        "key": "issueLimit",
+        "value": 5
     }
 ]

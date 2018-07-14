@@ -12,6 +12,7 @@ export class BookingDialogComponent implements OnInit {
   title: string;
   bookId: number;
   datePicked: Date;
+  dateForm: FormControl;
 
   dateFilter = (d: Date): boolean => {
     const currentDate = new Date();
@@ -25,6 +26,7 @@ export class BookingDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<BookingDialogComponent>) { }
 
   ngOnInit() {
+    this.dateForm = new FormControl('', [Validators.required]);
   }
 }
 

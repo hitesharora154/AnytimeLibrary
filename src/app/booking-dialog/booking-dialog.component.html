@@ -2,9 +2,10 @@
 <mat-dialog-content class="accent-color">
   <div *ngIf="bookId != -1; else unavailable">
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" placeholder="Pick a Date" [(ngModel)]="datePicked">
+      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" placeholder="Pick a Date" [(ngModel)]="datePicked" [formControl]="dateForm">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="dateForm.hasError('required')">Date is Required</mat-error>
     </mat-form-field>
   </div>
   <ng-template #unavailable>
@@ -13,7 +14,7 @@
 </mat-dialog-content>
 <mat-dialog-actions>
   <div *ngIf="bookId != -1; else aww">
-    <button mat-raised-button color="accent" (click)="dialogRef.close(datePicked)">Book</button>
+    <button mat-raised-button color="accent" [disabled]="dateForm.hasError('required')" (click)="dialogRef.close(datePicked)">Book</button>
     <button mat-raised-button (click)="dialogRef.close(null)">Cancel</button>
   </div>
   <ng-template #aww>

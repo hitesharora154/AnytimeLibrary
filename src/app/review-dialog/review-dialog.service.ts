@@ -10,13 +10,14 @@ export class ReviewDialogService {
 
     constructor(private dialog: MatDialog) { }
 
-    submitReview(title: string, bookId, userId): Observable<BookReview> {
+    submitReview(title: string, bookId, userId, bookingId): Observable<BookReview> {
         let dialogRef: MatDialogRef<ReviewDialogComponent>;
 
         dialogRef = this.dialog.open(ReviewDialogComponent);
         dialogRef.componentInstance.title = title;
         dialogRef.componentInstance.bookId = bookId;
         dialogRef.componentInstance.userId = userId;
+        dialogRef.componentInstance.bookingId = bookingId;
 
         return dialogRef.afterClosed();
     }

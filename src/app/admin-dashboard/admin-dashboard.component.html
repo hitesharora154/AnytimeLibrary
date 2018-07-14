@@ -1,4 +1,4 @@
-<mat-tab-group style="z-index: -1;">
+<mat-tab-group (selectChange)="getBooks()">
   <mat-tab label="View Bookings">
     <app-view-bookings></app-view-bookings>
   </mat-tab>

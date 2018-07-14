@@ -42,13 +42,17 @@ export class AddBookComponent implements OnInit {
   }
 
   submit() {
-    this.bookService.addBook(new Book(
+    const newBook = new Book(
       -1,
       this.bookNameForm.value,
       this.isNewCategory ? -1 : this.bookCategoryForm.value,
       this.authorForm.value,
       this.availabilityForm.value
-    )).subscribe((response: any) => {
+    );
+    if (this.isNewCategory) {
+      newBook.category = this.bookCategoryName.value;
+    }
+    this.bookService.addBook(newBook).subscribe((response: any) => {
       this.snackBar.open(response.message, 'Yayy!', {
         duration: 3000
       });

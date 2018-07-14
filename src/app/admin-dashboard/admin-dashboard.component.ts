@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { ViewBookComponent } from '../view-book/view-book.component';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminDashboardComponent implements OnInit {
 
+  @ViewChild(ViewBookComponent) bookViewComponents: ViewBookComponent;
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  getBooks() {
+    this.bookViewComponents.ngAfterViewInit();
+  }
+
 
 }

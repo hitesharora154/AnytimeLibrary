@@ -1,4 +1,5 @@
 export class BookIssued {
+    id: number;
     userId: string;
     userName: string;
     bookId: number;

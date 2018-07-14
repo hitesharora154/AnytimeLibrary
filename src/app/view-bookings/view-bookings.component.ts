@@ -126,14 +126,16 @@ export class ViewBookingsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  returnBook(bookTitle, bookId, userId) {
-    this.dialogService.submitReview(bookTitle, bookId, userId).subscribe(
+  returnBook(bookTitle, bookId, userId, bookingId) {
+    this.dialogService.submitReview(bookTitle, bookId, userId, bookingId).subscribe(
       res => {
         if (res) {
+          console.log(bookingId);
           this.bookReviewService.addReview(res).subscribe((response: any) => {
             this.snackBar.open(response.message, 'Yayy!', {
               duration: 3000
             });
+            this.sortChanged();
           });
         }
       });

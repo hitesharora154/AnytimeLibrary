@@ -32,13 +32,41 @@
 		"title": "The Secret",
 		"categoryID": 1,
 		"author": "Dan Brown",
-		"availability": 4
+		"availability": 5
 	},
 	{
 		"id": 6,
 		"title": "The Alchemist",
 		"categoryID": 1,
 		"author": "Paul Coelhelo",
-		"availability": 2
+		"availability": 1
+	},
+	{
+		"id": 7,
+		"title": "Tell Me Your Dreams",
+		"categoryID": 4,
+		"author": "Sydney Sheldon",
+		"availability": 10
+	},
+	{
+		"id": 8,
+		"title": "Gone Girl",
+		"categoryID": 4,
+		"author": "Gillian Flynn",
+		"availability": 6
+	},
+	{
+		"id": 9,
+		"title": "A Walk To Remember",
+		"categoryID": 5,
+		"author": "Nicholas Sparks",
+		"availability": 8
+	},
+	{
+		"id": 10,
+		"title": "The Fault In Our Stars",
+		"categoryID": 5,
+		"author": "John Green",
+		"availability": 6
 	}
 ]
