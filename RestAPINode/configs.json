@@ -1,10 +1,12 @@
 [
-    {
-        "key": "renewalDays",
-        "value": 7
-    },
-    {
-        "key": "issueLimit",
-        "value": 5
-    }
+	{
+		"key": "renewalDays",
+		"value": 7,
+		"label": "Number of days for renewal interval"
+	},
+	{
+		"key": "issueLimit",
+		"value": 3,
+		"label": "Maximum number of books issued by a user"
+	}
 ]

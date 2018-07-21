@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { UpdateBookComponent } from './update-book.component';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { Book } from '../models/book';
 import { BookCategory } from '../models/book-category';

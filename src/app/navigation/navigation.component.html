@@ -15,5 +15,7 @@
       <button mat-menu-item (click)="logout()" color="warn">Log Out</button>
     </mat-menu>
     <img style="height: inherit;" src="{{socialUser.imageUrl}}">
+    &nbsp;&nbsp;&nbsp;
+    <button *ngIf="role=='admin'" mat-raised-button color="accent" (click)="openSettingsSheet()">Settings</button>
   </ng-template>
 </mat-toolbar>

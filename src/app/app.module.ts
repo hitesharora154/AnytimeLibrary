@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular5-social-login';
+import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular-6-social-login';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../Added_Modules/material.module';
 
 import { AppComponent } from './app.component';
 import { getAuthServiceConfigs } from '../../socialloginConfig';
-import { MaterialModule } from '../Added_Modules/material.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { BookDashboardComponent } from './book-dashboard/book-dashboard.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookComponent } from './book/book.component';
 import { BookService } from './services/book.service';
 import { UserService } from './services/user.service';
@@ -33,6 +34,9 @@ import { LoginDialogService } from './login/login-dialog.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { CustomerDashboardComponent } from './customer-dashboard/customer-dashboard.component';
+import { environment } from '../environments/environment';
+import { SettingComponent } from './setting/setting.component';
+import { SettingsService } from './services/settings.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,8 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
     WelcomePageComponent,
     LoginComponent,
     AdminDashboardComponent,
-    CustomerDashboardComponent
+    CustomerDashboardComponent,
+    SettingComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,8 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
         path: '',
         component: WelcomePageComponent
       }
-    ])
+    ]),
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {
@@ -91,14 +97,16 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
     UpdateBookDialogService,
     AuthService,
     LoginDialogService,
-    AuthGuard
+    AuthGuard,
+    SettingsService
   ],
   entryComponents: [
     BookingDialogComponent,
     ReviewDialogComponent,
     DeleteDialogComponent,
     UpdateBookComponent,
-    LoginComponent
+    LoginComponent,
+    SettingComponent
   ],
   bootstrap: [AppComponent]
 })

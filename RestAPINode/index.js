@@ -225,7 +225,7 @@ app.post('/bookIssued', (request, response) => {
                     var booksIssued = JSON.parse(bookIssueddata);
                     var usersIssuedBooks = booksIssued.filter(b => b.userId == request.body.userId);
                     if (usersIssuedBooks) {
-                        if (usersIssuedBooks.length > config.value) {
+                        if (usersIssuedBooks.length >= config.value) {
                             response.send({ message: "User Issue Limit Reached" });
                         }
                         else {
@@ -407,6 +407,36 @@ app.put('/books/:id', (request, response) => {
                     }
                 });
             }
+        }
+    });
+});
+
+app.get('/config', (request, response) => {
+    fs.readFile('configs.json', (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            var config = JSON.parse(data);
+            response.send(config);
+        }
+    });
+});
+
+app.put('/config', (request, response) => {
+    fs.readFile('configs.json', (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            fs.writeFile("configs.json", JSON.stringify(request.body, null, "\t"), (err) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    response.send({ message: "Done!" });
+                }
+            });
         }
     });
 });

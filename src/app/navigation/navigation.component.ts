@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'angular5-social-login';
-import { MatSnackBar } from '@angular/material';
+import { AuthService } from 'angular-6-social-login';
+import { MatSnackBar, MatBottomSheet } from '@angular/material';
 import { Router } from '@angular/router';
 
 import { UserService } from '../services/user.service';
 import { User } from '../models/user';
 import { LoginDialogService } from '../login/login-dialog.service';
+import { SettingComponent } from '../setting/setting.component';
 
 @Component({
   selector: 'app-navigation',
@@ -15,12 +16,14 @@ import { LoginDialogService } from '../login/login-dialog.service';
 export class NavigationComponent implements OnInit {
 
   socialUser: User;
+  role: string;
 
   constructor(private socialAuthService: AuthService,
     private userService: UserService,
     private snackBar: MatSnackBar,
     private loginDialogServive: LoginDialogService,
-    private router: Router) { }
+    private router: Router,
+    private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
   }
@@ -33,6 +36,7 @@ export class NavigationComponent implements OnInit {
       if (res.message === 'Welcome') {
         this.socialUser = new User(0, 'Admin', 'admin@admin.com', null);
         sessionStorage.setItem('role', 'admin');
+        this.role = sessionStorage.getItem('role');
         this.router.navigate(['admin']);
       }
     });
@@ -62,6 +66,7 @@ export class NavigationComponent implements OnInit {
       (userData) => {
         sessionStorage.setItem('role', 'customer');
         sessionStorage.setItem('userId', userData.id);
+        this.role = sessionStorage.getItem('role');
         let users: User[];
         let flag = false;
         this.router.navigate(['customer']);
@@ -95,5 +100,9 @@ export class NavigationComponent implements OnInit {
           });
       }).catch(err => console.log('Custom' + err))
       .catch(err => console.log('Custom' + err));
+  }
+
+  openSettingsSheet() {
+    this.bottomSheet.open(SettingComponent);
   }
 }

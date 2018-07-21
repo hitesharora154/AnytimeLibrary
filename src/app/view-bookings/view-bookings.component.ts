@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatSort, MatTableDataSource, PageEvent, MatPaginator, Sort, MatSnackBar } from '@angular/material';
 
 import { BookIssued } from '../models/book-issued';

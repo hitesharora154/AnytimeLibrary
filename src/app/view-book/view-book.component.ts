@@ -119,6 +119,7 @@ export class ViewBookComponent implements OnInit, AfterViewInit {
     this.bookService.getBooks().subscribe(res => {
       this.books = res;
       this.dataSource = new MatTableDataSource<Book>(this.books);
+      this.dataSource.paginator = this.paginator;
       this.sortChanged();
     });
   }
