@@ -35,7 +35,6 @@ export class ReviewDialogComponent implements OnInit {
       review: this.commentForm.value,
       bookingId: this.bookingId
     };
-    console.log(bookReview);
     this.dialogRef.close(bookReview);
   }
 

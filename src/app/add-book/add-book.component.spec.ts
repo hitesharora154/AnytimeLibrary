@@ -1,25 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddBookComponent } from './add-book.component';
+import { BookService } from '../services/book.service';
+import { Observable } from 'rxjs';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
   let fixture: ComponentFixture<AddBookComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ AddBookComponent ]
-    })
-    .compileComponents();
-  }));
+  let bookService: BookService;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddBookComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    TestBed.configureTestingModule({
+      declarations: [AddBookComponent],
+      providers: [BookService]
+    });
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  fixture = TestBed.createComponent(AddBookComponent);
+  component = fixture.componentInstance;
+  bookService = TestBed.get(BookService);
+
+  it('should submit', () => {
+    spyOn(bookService, 'addBook').and.returnValue(Observable.from({message: 'Done!'}));
   });
 });

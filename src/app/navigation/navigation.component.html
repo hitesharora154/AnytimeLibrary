@@ -1,21 +1,20 @@
-<mat-toolbar color="primary">
-  <a class="navbar-brand" href="#" style="color: azure">Library</a>
-  <div class="col-3"></div>
-  <div *ngIf="!socialUser; else userData">
+<mat-toolbar color="primary" class="container-fluid row">
+  <a class="navbar-brand col-2" href="#" style="color: azure">Library</a>
+  <div class="col-6"></div>
+  <div *ngIf="!socialUser; else userData" class="col-4">
     <button mat-raised-button color="primary" (click)="adminSignIn()">Sign in as Admin</button>
     <button mat-raised-button (click)="signIn()" color="warn">Sign In with Google</button>
   </div>
-  <div class="col-5"></div>
-  <ng-template #userData class="col-4">
-    <button mat-raised-button color="primary" [matMenuTriggerFor]="appMenu">
-      <h5 style="color:azure; display: inline">Welcome {{socialUser.name}}  <span class="glyphicon glyphicon-menu-down"></span></h5>
+  <ng-template #userData class="col-4 row">
+      <h5 style="color:azure; display: inline">Welcome, {{socialUser.name}}</h5>
+    <button mat-icon-button color="warn" [matMenuTriggerFor]="appMenu">
+      <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #appMenu="matMenu">
       <button mat-menu-item (click)="redirectToHomePage()" color="primary">Home</button>
       <button mat-menu-item (click)="logout()" color="warn">Log Out</button>
     </mat-menu>
-    <img style="height: inherit;" src="{{socialUser.imageUrl}}">
-    &nbsp;&nbsp;&nbsp;
-    <button *ngIf="role=='admin'" mat-raised-button color="accent" (click)="openSettingsSheet()">Settings</button>
+    <img  style="height: inherit;" src="{{socialUser.imageUrl}}">
+    <button mat-icon-button *ngIf="role=='admin'" color="warn" (click)="openSettingsSheet()"><mat-icon>settings</mat-icon></button>
   </ng-template>
 </mat-toolbar>

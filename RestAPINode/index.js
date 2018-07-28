@@ -335,7 +335,7 @@ app.post('/bookReview', (request, response) => {
                                     console.log(err);
                                 }
                                 else {
-                                    response.send({ message: "Done!" });
+                                    response.send({ message: "Thanks for your feedback!" });
                                 }
                             });
                         }

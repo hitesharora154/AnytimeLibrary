@@ -5,7 +5,7 @@
   </mat-form-field>
   <br>
   <mat-form-field style="display: inline">
-    <mat-select placeholder="Book Category" (change)="categorySelected($event.value)">
+    <mat-select placeholder="Book Category" (selectionChange)="categorySelected($event.value)">
       <mat-option>None</mat-option>
       <mat-option *ngFor="let category of bookCategories" [value]="category.id">
         {{category.name}}
