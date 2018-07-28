@@ -18,7 +18,7 @@
 		"title": "The Soul of America: The Battle for Our Better Angels",
 		"categoryID": 3,
 		"author": "John Meacham",
-		"availability": 8
+		"availability": 7
 	},
 	{
 		"id": 4,
@@ -53,14 +53,14 @@
 		"title": "Gone Girl",
 		"categoryID": 4,
 		"author": "Gillian Flynn",
-		"availability": 5
+		"availability": 3
 	},
 	{
 		"id": 9,
 		"title": "A Walk To Remember",
 		"categoryID": 5,
 		"author": "Nicholas Sparks",
-		"availability": 6
+		"availability": 4
 	},
 	{
 		"id": 10,

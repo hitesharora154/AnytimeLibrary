@@ -13,7 +13,7 @@ import { User } from '../models/user';
 @Injectable()
 export class BookService {
 
-    constructor(private http: HttpClient, private userService: UserService) { }
+    constructor(private http: HttpClient) { }
 
     getBooks(): Observable<Book[]> {
         return this.http.get<Book[]>(environment.apiUrl + 'books')
