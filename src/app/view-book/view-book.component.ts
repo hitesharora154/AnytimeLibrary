@@ -30,15 +30,12 @@ export class ViewBookComponent implements OnInit, AfterViewInit {
     private snackBar: MatSnackBar,
     private updateDialogService: UpdateBookDialogService) { }
 
-  ngOnInit() {
-  }
-
   sortChanged(sortEventData?) {
     this.bookService.getBooks().subscribe(res => {
 
       this.bookService.getBookCategories().subscribe(categoryData => {
         this.bookCategories = categoryData;
-
+        this.books = res;
         this.books.forEach(book => {
           const bookCategory = this.bookCategories.find(b => b.id === book.categoryID);
           if (bookCategory) {
@@ -113,6 +110,10 @@ export class ViewBookComponent implements OnInit, AfterViewInit {
         this.dataSource.sort = this.sort;
       });
     });
+  }
+
+  ngOnInit() {
+
   }
 
   ngAfterViewInit(): void {

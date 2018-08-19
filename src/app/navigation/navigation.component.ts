@@ -95,7 +95,7 @@ export class NavigationComponent implements OnInit {
                   userData.email,
                   userData.image
                 )
-              ).subscribe(res => console.log(res));
+              ).subscribe();
             }
           });
       }).catch(err => console.log('Custom' + err))

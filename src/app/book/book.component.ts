@@ -15,7 +15,9 @@ export class BookComponent implements OnInit {
 
   @Input() book: Book;
 
-  constructor(private bookingDialogService: BookingDialogService, private bookService: BookService, private snackBar: MatSnackBar) { }
+  constructor(private bookingDialogService: BookingDialogService,
+    private bookService: BookService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }

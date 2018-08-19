@@ -1,9 +1,8 @@
-import { Component, OnInit, ApplicationRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { BookService } from '../services/book.service';
 import { Book } from '../models/book';
 import { BookCategory } from '../models/book-category';
-import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-book-dashboard',
@@ -18,7 +17,7 @@ export class BookDashboardComponent implements OnInit {
   isLoading = true;
   categoryId = 0;
 
-  constructor(private bookService: BookService, private applicationRef: ApplicationRef) { }
+  constructor(private bookService: BookService) { }
 
   ngOnInit() {
     this.getBooks(null);

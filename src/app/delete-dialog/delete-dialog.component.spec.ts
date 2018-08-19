@@ -1,25 +1,41 @@
-// import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-// import { DeleteDialogComponent } from './delete-dialog.component';
+import { DeleteDialogComponent } from './delete-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule, MatButtonModule, MatDialogRef } from '@angular/material';
 
-// describe('DeleteDialogComponent', () => {
-//   let component: DeleteDialogComponent;
-//   let fixture: ComponentFixture<DeleteDialogComponent>;
+class MockMatDialogRef {
+    close(dialogResult) { }
+}
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ DeleteDialogComponent ]
-//     })
-//     .compileComponents();
-//   }));
+describe('DeleteDialogComponent', () => {
+    let component: DeleteDialogComponent;
+    let fixture: ComponentFixture<DeleteDialogComponent>;
+    let mockMatDialogRef: MockMatDialogRef;
 
-//   beforeEach(() => {
-//     fixture = TestBed.createComponent(DeleteDialogComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   });
+    beforeEach(async(() => {
+        mockMatDialogRef = new MockMatDialogRef();
+        TestBed.configureTestingModule({
+            imports: [
+                BrowserAnimationsModule,
+                MatDialogModule,
+                MatButtonModule
+            ],
+            providers: [
+                { provide: MatDialogRef, useValue: mockMatDialogRef }
+            ],
+            declarations: [DeleteDialogComponent]
+        })
+            .compileComponents();
+    }));
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+    beforeEach(() => {
+        fixture = TestBed.createComponent(DeleteDialogComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
+});

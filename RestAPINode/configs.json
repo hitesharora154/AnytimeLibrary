@@ -6,7 +6,7 @@
 	},
 	{
 		"key": "issueLimit",
-		"value": 5,
+		"value": 4,
 		"label": "Maximum number of books issued by a user"
 	}
 ]
