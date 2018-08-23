@@ -80,6 +80,11 @@ describe('SettingComponent', () => {
         expect(spy.calls.first().args[0]).toBe('Done!');
     });
 
+    it('should not be able to save settings', () => {
+        spyOn(mockSettingsService, 'updateConfig').and.returnValue(Observable.of({message: 'Aww'}));
+        component.saveSettings();
+    });
+
     it('should change Config', () => {
         spyOn(mockSettingsService, 'getConfig').and.returnValue(Observable.of(settingsArray));
         component.ngOnInit();

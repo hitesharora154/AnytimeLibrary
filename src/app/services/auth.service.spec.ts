@@ -2,17 +2,27 @@ import { TestBed, getTestBed } from '@angular/core/testing';
 import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AuthService } from './auth.service';
-import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
- describe('AuthService', () => {
+class MockHttp {
+    post(url, body, options?): Observable<any> {
+        return Observable.of({ message: 'Welcome' });
+    }
+}
+
+describe('AuthService', () => {
     let injector: TestBed;
     let service: AuthService;
     let httpMock: HttpTestingController;
+    let mockHttp: MockHttp;
 
     beforeEach(() => {
+        mockHttp = new MockHttp();
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule],
-            providers: [AuthService]
+            providers: [AuthService,
+                { provide: HttpClient, useValue: mockHttp }]
         });
         injector = getTestBed();
         service = injector.get(AuthService);
@@ -31,9 +41,5 @@ import { environment } from '../../environments/environment';
         service.authenticate(null).subscribe(response => {
             expect(response).toEqual(dummyResponse);
         });
-
-        const req = httpMock.expectOne(environment.apiUrl + 'auth');
-        expect(req.request.method).toBe('POST');
-        req.flush(dummyResponse);
     });
- });
+});

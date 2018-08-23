@@ -65,11 +65,18 @@ describe('BookDashboardComponent', () => {
         expect(component.books.length).toBe(1);
     });
 
-    it('should be able to enter text', () => {
+    it('should be able to enter text and get book', () => {
         spyOn(mockBookService, 'getBooks').and.returnValue(Observable.of(bookArray));
         spyOn(mockBookService, 'getBookCategories').and.returnValue(Observable.of(bookCategoryArray));
         component.textEntered('the');
         expect(component.books.length).toBe(1);
+    });
+
+    it('should be able to enter text and not get a book', () => {
+        spyOn(mockBookService, 'getBooks').and.returnValue(Observable.of(bookArray));
+        spyOn(mockBookService, 'getBookCategories').and.returnValue(Observable.of(bookCategoryArray));
+        component.textEntered('twere');
+        expect(component.books.length).toBe(0);
     });
 
     it('should be able to enter text and select category', () => {
@@ -77,6 +84,14 @@ describe('BookDashboardComponent', () => {
         spyOn(mockBookService, 'getBookCategories').and.returnValue(Observable.of(bookCategoryArray));
         component.categoryId = 3;
         component.textEntered('the');
+        expect(component.books.length).toBe(1);
+    });
+
+    it('should be able to select no category', () => {
+        spyOn(mockBookService, 'getBooks').and.returnValue(Observable.of(bookArray));
+        spyOn(mockBookService, 'getBookCategories').and.returnValue(Observable.of(bookCategoryArray));
+        component.categoryId = 3;
+        component.textEntered(null);
         expect(component.books.length).toBe(1);
     });
 });

@@ -47,4 +47,15 @@ describe('UpdateBookComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
+
+    it('should update', () => {
+        component.ngOnInit();
+        component.titleForm.value = 'the book';
+        component.categoryForm.value = 3;
+        component.authorForm.value = 'the author';
+        component.availabilityForm.value = 3;
+        spyOn(mockDialogRef, 'close');
+        component.update();
+        expect(mockDialogRef.close).toHaveBeenCalled();
+    });
 });

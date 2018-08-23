@@ -41,6 +41,16 @@ describe('BookService', () => {
             expect(req.request.method).toBe('GET');
             req.flush(dummyBooks);
         });
+
+        it('should return an empty array', () => {
+            service.getBooks().subscribe(books => {
+                expect(books.length).toBe(0);
+            });
+
+            const req = httpMock.expectOne(environment.apiUrl + 'books');
+            expect(req.request.method).toBe('GET');
+            req.flush(null);
+        });
     });
 
     describe('#addBook', () => {
@@ -80,6 +90,16 @@ describe('BookService', () => {
             const req = httpMock.expectOne(environment.apiUrl + 'bookCategories');
             expect(req.request.method).toBe('GET');
             req.flush(dummyCategories);
+        });
+
+        it('should return an empty array of book categories', () => {
+            service.getBookCategories().subscribe(categories => {
+                expect(categories.length).toBe(0);
+            });
+
+            const req = httpMock.expectOne(environment.apiUrl + 'bookCategories');
+            expect(req.request.method).toBe('GET');
+            req.flush(null);
         });
     });
 
@@ -149,6 +169,15 @@ describe('BookService', () => {
             const req = httpMock.expectOne(environment.apiUrl + 'bookIssued');
             expect(req.request.method).toBe('GET');
             req.flush(dummyBooksIssued);
+        });
+
+        it('should return an empty array', () => {
+            service.getIssuedBooks().subscribe(booksIssued => {
+            });
+
+            const req = httpMock.expectOne(environment.apiUrl + 'bookIssued');
+            expect(req.request.method).toBe('GET');
+            req.flush(null);
         });
     });
 

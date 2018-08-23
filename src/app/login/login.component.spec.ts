@@ -5,6 +5,7 @@ import { MatInputModule, MatFormFieldModule, MatButtonModule, MatDialogRef } fro
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable } from 'rxjs';
 
 class MockMatDialogRef {
     close(dialogResult?) { }
@@ -49,5 +50,12 @@ describe('LoginComponent', () => {
 
     it('should create', () => {
         expect(component).toBeTruthy();
+    });
+
+    it('should login', () => {
+        spyOn(mockAuthService, 'authenticate').and.returnValue(Observable.of({message: 'Done!'}));
+        component.loginForm.controls['username'].setValue('admin');
+        component.loginForm.controls['password'].setValue('admin321');
+        component.login();
     });
 });

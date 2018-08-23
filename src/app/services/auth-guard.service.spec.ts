@@ -1,22 +1,29 @@
 import { AuthGuard } from './auth-guard.service';
 import { async, TestBed, ComponentFixture } from '@angular/core/testing';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
+class MockRouter {
+    navigate(commands: any[], extras?) {
+
+    }
+}
 
 describe('Auth Guard Service', () => {
     let authGuard: AuthGuard;
     let fixture: ComponentFixture<AuthGuard>;
-    const router = {
-        navigate: jasmine.createSpy('navigate')
-    };
+    let mockRouter: MockRouter;
 
     beforeEach(async(() => {
+        mockRouter = new MockRouter();
         TestBed.configureTestingModule({
+            imports: [
+                RouterModule
+            ],
             declarations: [
                 AuthGuard
             ],
             providers: [
-                AuthGuard,
-                { provide: Router, useValue: router }
+                { provide: Router, useValue: mockRouter }
             ]
         }).compileComponents();
     }));
@@ -29,11 +36,11 @@ describe('Auth Guard Service', () => {
 
     // it('should be able to allow access', () => {
     //     sessionStorage.setItem('role', 'customer');
-    //     expect(authGuard.canActivate()).toBe(true);
+    //     authGuard.canActivate();
     // });
 
     // it('should be able to deny acccess', () => {
     //     sessionStorage.clear();
-    //     expect(authGuard.canActivate()).toBe(false);
+    //     authGuard.canActivate();
     // });
 });

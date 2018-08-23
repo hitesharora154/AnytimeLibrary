@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 
 const socialUser: SocialUser = {
-    id: '34e',
+    id: '34',
     name: 'huihui',
     email: 'efsef',
     image: 'fefesf',
@@ -132,12 +132,22 @@ describe('NavigationComponent', () => {
         expect(sessionStorage.getItem('role')).toBe('admin');
     });
 
+    it('should not be able to do admin signIn', () => {
+        spyOn(mockLoginDialogService, 'login').and.returnValue(Observable.of({ message: 'Nooo' }));
+        component.adminSignIn();
+    });
+
     it('should be able to signIn with social for new user', () => {
         component.signIn();
         expect(sessionStorage.getItem('role')).not.toBeNull();
     });
 
     it('should be able to signIn with social for existing user', () => {
+        component.signIn();
+        expect(sessionStorage.getItem('role')).not.toBeNull();
+    });
+
+    it('should be able to signIn with social for existing user not matching id', () => {
         spyOn(mockUserService, 'getUsers').and.returnValue(Observable.of(userArray));
         component.signIn();
         expect(sessionStorage.getItem('role')).not.toBeNull();

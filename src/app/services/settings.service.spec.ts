@@ -47,6 +47,16 @@ describe('SettingsService', () => {
             expect(req.request.method).toBe('GET');
             req.flush(dummySettings);
         });
+
+        it('should return an empty array', () => {
+            service.getConfig().subscribe(configs => {
+                expect(configs.length).toBe(0);
+            });
+
+            const req = httpMock.expectOne(environment.apiUrl + 'config');
+            expect(req.request.method).toBe('GET');
+            req.flush(null);
+        });
     });
 
     describe('#changeSetting', () => {

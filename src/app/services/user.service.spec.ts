@@ -63,5 +63,15 @@ describe('UserService', () => {
             expect(req.request.method).toBe('GET');
             req.flush(dummyUsers);
         });
+
+        it('should return an empty array', () => {
+            service.getUsers().subscribe(users => {
+                expect(users.length).toBe(0);
+            });
+
+            const req = httpMock.expectOne(environment.apiUrl + 'user');
+            expect(req.request.method).toBe('GET');
+            req.flush(null);
+        });
     });
 });
