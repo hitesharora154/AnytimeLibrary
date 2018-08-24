@@ -1,13 +1,23 @@
-<div class="container-fluid">
-  <div *ngFor="let config of configs">
-    <mat-form-field>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="container-fluid col-8">
+    <div *ngFor="let config of configs">
       <h4>{{config.label}}</h4>
-      <input matInput type="number" placeholder="Enter a Value" value="{{config.value}}" (change)="changeConfig(config.key, $event.srcElement.valueAsNumber)">
-    </mat-form-field>
+      <mat-form-field>
+        <input matInput type="number" placeholder="Enter a Value" value="{{config.value}}" (change)="changeConfig(config.key, $event.srcElement.valueAsNumber)">
+      </mat-form-field>
+    </div>
   </div>
-  <div class="row">
-    <button class="col-5" mat-raised-button color="primary" (click)="saveSettings()">Save Changes</button>
-    <div class="col-2"></div>
-    <button class="col-5" mat-raised-button color="warn" (click)="cancelChanges()">Cancel</button>
+  <div class="col-2"></div>
+</div>
+<div class="row">
+  <div class="col-2"></div>
+  <div class="col-3">
+    <button mat-raised-button color="primary" (click)="saveSettings()">Save Changes</button>
   </div>
+  <div class="col-2"></div>
+  <div class="col-3">
+    <button mat-raised-button color="warn" (click)="cancelChanges()">Cancel</button>
+  </div>
+  <div class="col-2"></div>
 </div>
