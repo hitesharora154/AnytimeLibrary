@@ -1,20 +1,25 @@
 <mat-toolbar color="primary" class="container-fluid row">
-  <a class="navbar-brand col-2" href="#" style="color: azure">Library</a>
+  <a class="navbar-brand" href="#" style="color: azure">Library</a>
   <div class="col-6"></div>
-  <div *ngIf="!socialUser; else userData" class="col-4">
-    <button mat-raised-button color="primary" (click)="adminSignIn()">Sign in as Admin</button>
-    <button mat-raised-button (click)="signIn()" color="warn">Sign In with Google</button>
-  </div>
-  <ng-template #userData class="col-4 row">
+  <div class="col-4">
+    <div *ngIf="!socialUser; else userData">
+      <button mat-raised-button color="primary" (click)="adminSignIn()">Sign in as Admin</button>
+      <button mat-raised-button (click)="signIn()" color="warn">Sign In with Google</button>
+    </div>
+    <ng-template #userData>
       <h5 style="color:azure; display: inline">Welcome, {{socialUser.name}}</h5>
-    <button mat-icon-button color="warn" [matMenuTriggerFor]="appMenu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    <mat-menu #appMenu="matMenu">
-      <button mat-menu-item (click)="redirectToHomePage()" color="primary">Home</button>
-      <button mat-menu-item (click)="logout()" color="warn">Log Out</button>
-    </mat-menu>
-    <img  style="height: inherit;" src="{{socialUser.imageUrl}}">
-    <button mat-icon-button *ngIf="role=='admin'" color="warn" (click)="openSettingsSheet()"><mat-icon>settings</mat-icon></button>
-  </ng-template>
+      <button mat-icon-button color="warn" [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item (click)="redirectToHomePage()" color="primary">Home</button>
+        <button mat-menu-item (click)="logout()" color="warn">Log Out</button>
+      </mat-menu>
+      <img style="display: inline;" src="{{socialUser.imageUrl}}">
+      <button mat-icon-button *ngIf="role=='admin'" color="warn" (click)="openSettingsSheet()">
+        <mat-icon>settings</mat-icon>
+      </button>
+    </ng-template>
+  </div>
+  <div class="col-2"></div>
 </mat-toolbar>

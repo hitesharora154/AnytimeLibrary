@@ -1,10 +1,11 @@
 <mat-progress-bar mode="query" color="accent" *ngIf="isLoading"></mat-progress-bar>
-<div>
-  <mat-form-field style="display: inline">
+<div class="row container">
+  <div class="col-1"></div>
+  <mat-form-field class="col-4">
     <input matInput [ngModel]="authorOrTitle" placeholder="Search By Author or Title" (ngModelChange)="textEntered($event)">
   </mat-form-field>
-  <br>
-  <mat-form-field style="display: inline">
+  <div class="col-2"></div>
+  <mat-form-field class="col-3">
     <mat-select placeholder="Book Category" (selectionChange)="categorySelected($event.value)">
       <mat-option>None</mat-option>
       <mat-option *ngFor="let category of bookCategories" [value]="category.id">
@@ -12,6 +13,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+  <div class="col-2"></div>
 </div>
 <br>
 <br>
