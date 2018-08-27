@@ -6,6 +6,9 @@
       "installMode": "prefetch",
       "resources": {
         "files": [
+          "assets/lib1.jpg",
+          "/assets/lib2.jpg",
+          "/assets/lib3.jpg",
           "/favicon.ico",
           "/index.html",
           "/*.css",

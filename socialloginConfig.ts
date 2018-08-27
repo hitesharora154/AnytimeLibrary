@@ -1,5 +1,4 @@
 import {
-    SocialLoginModule,
     AuthServiceConfig,
     GoogleLoginProvider
 } from 'angular-6-social-login';

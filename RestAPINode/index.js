@@ -137,7 +137,7 @@ app.listen(port, () => {
     console.log("Server is running on " + port);
 });
 
-app.get('/bookCategories', (request, response) => {
+app.get('/book-categories', (request, response) => {
     fs.readFile("bookCategories.json", (err, data) => {
         if (err) {
             response.write(err.message);
@@ -161,7 +161,7 @@ app.get('/user', (request, response) => {
     })
 });
 
-app.get('/bookIssued/:id?', (request, response) => {
+app.get('/book-issued/:id?', (request, response) => {
     fs.readFile("booksIssued.json", (err, data) => {
         if (err) {
             response.write(err.message);
@@ -207,7 +207,7 @@ app.get('/bookIssued/:id?', (request, response) => {
     })
 });
 
-app.post('/bookIssued', (request, response) => {
+app.post('/book-issued', (request, response) => {
 
     fs.readFile("configs.json", (err, data) => {
         if (err) {
@@ -304,7 +304,7 @@ app.post('/bookIssued', (request, response) => {
 
 });
 
-app.post('/bookReview', (request, response) => {
+app.post('/book-review', (request, response) => {
     fs.readFile("bookReviews.json", (err, data) => {
         if (err) {
             console.log(err);

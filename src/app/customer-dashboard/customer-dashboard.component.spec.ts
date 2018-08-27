@@ -46,9 +46,4 @@ describe('CustomerDashboardComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
     });
-
-    it('should load Bookings', () => {
-        component.loadBookings();
-        expect(component.bookingComponent.sortChanged).toHaveBeenCalled();
-    });
 });

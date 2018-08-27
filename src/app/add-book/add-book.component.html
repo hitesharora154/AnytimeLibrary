@@ -1,5 +1,6 @@
-<div class="container">
-  <form>
+<div class="container row">
+<div class="col-3"></div>
+  <form class="col-6">
     <br>
     <mat-form-field>
       <input matInput placeholder="Book Title" [formControl]="bookNameForm">
@@ -54,4 +55,5 @@
     || authorForm.hasError('required') || bookNameForm.hasError('required') ">
       Submit</button>
   </form> 
+  <div class="col-3"></div>
 </div>

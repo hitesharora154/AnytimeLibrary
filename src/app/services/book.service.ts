@@ -43,7 +43,7 @@ export class BookService {
     }
 
     getBookCategories() {
-        return this.http.get(environment.apiUrl + 'bookCategories')
+        return this.http.get(environment.apiUrl + 'book-categories')
             .pipe(
                 map((categories: Array<any>) => {
                     const categoriesResult: Array<BookCategory> = [];
@@ -62,7 +62,7 @@ export class BookService {
     }
 
     getIssuedBooks(userId?): Observable<BookIssued[]> {
-        let url = environment.apiUrl + 'bookIssued';
+        let url = environment.apiUrl + 'book-issued';
         if (userId) {
             url = url + '/' + userId;
         }
@@ -97,7 +97,7 @@ export class BookService {
     }
 
     addBookIssue(bookIssued: BookIssued) {
-        return this.http.post(environment.apiUrl + 'bookIssued', bookIssued);
+        return this.http.post(environment.apiUrl + 'book-issued', bookIssued);
     }
 
     addBook(book: Book) {

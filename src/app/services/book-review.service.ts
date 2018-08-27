@@ -10,7 +10,7 @@ export class BookReviewService {
     constructor(private http: HttpClient) { }
 
     addReview(review: BookReview) {
-        return this.http.post(environment.apiUrl + 'bookReview', review);
+        return this.http.post(environment.apiUrl + 'book-review', review);
     }
 
 }

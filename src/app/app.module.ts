@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider } from 'angular-6-social-login';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { SocialLoginModule, AuthServiceConfig } from 'angular-6-social-login';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../Added_Modules/material.module';
+import { NgxHmCarouselModule } from 'ngx-hm-carousel';
 
 import { AppComponent } from './app.component';
 import { getAuthServiceConfigs } from '../../socialloginConfig';
@@ -37,6 +38,7 @@ import { CustomerDashboardComponent } from './customer-dashboard/customer-dashbo
 import { environment } from '../environments/environment';
 import { SettingComponent } from './setting/setting.component';
 import { SettingsService } from './services/settings.service';
+import { GlobalErrorHandlerService } from './services/globalerrorHandler.service';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,7 @@ import { SettingsService } from './services/settings.service';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgxHmCarouselModule,
     RouterModule.forRoot([
       {
         path: 'admin',
@@ -98,7 +101,9 @@ import { SettingsService } from './services/settings.service';
     AuthService,
     LoginDialogService,
     AuthGuard,
-    SettingsService
+    SettingsService,
+    GlobalErrorHandlerService,
+    {provide: ErrorHandler, useClass: GlobalErrorHandlerService}
   ],
   entryComponents: [
     BookingDialogComponent,

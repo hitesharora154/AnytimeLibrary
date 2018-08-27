@@ -1,3 +1,42 @@
-<p>
-  welcome-page works!
-</p>
+<h2 class="jumbotron" style="margin: 0">Welcome to Anytime Library</h2>
+<ngx-hm-carousel
+  [(ngModel)]="index"
+  [autoplay-speed]="3000"
+  [autoplay]="true"
+  [infinite]="infinite"
+  [between-delay]="2000"
+  class="carousel c-accent container-fluid"
+  style="height: 50%; width: 80%">
+
+  <section ngx-hm-carousel-container class="content">
+    <article class="item cursor-pointer"
+      *ngFor="let avatar of avatars"
+      ngx-hm-carousel-item>
+      <div class="img"
+        [style.backgroundImage]="'url('+avatar.url+')'">
+      </div>
+    </article>
+  </section>
+
+  <ng-template #carouselPrev>
+    <div class="click-area">
+      <i class="material-icons">keyboard_arrow_left</i>
+    </div>
+  </ng-template>
+  <ng-template #carouselNext>
+    <div class="click-area">
+      <i class="material-icons">keyboard_arrow_right</i>
+    </div>
+  </ng-template>
+
+  <ng-template #carouselDot let-model>
+    <div class="ball bg-accent"
+      [class.visible]="model.index === model.currentIndex"></div>
+  </ng-template>
+
+  <ng-template #carouselProgress let-progress>
+    <div class="progress" *ngIf="progress > 0"
+    [style.width]="(direction==='right' ? progress : 100 - progress) + '%'"></div>
+  </ng-template>
+
+</ngx-hm-carousel>
